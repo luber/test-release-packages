@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>5db0deb5-9aa2-45d6-9719-25bece339028</ProjectGuid>
+    <RootNamespace>test_release_packages</RootNamespace>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Company>Liubomyr Vyhovskyi</Company>
+    <Copyright>Copyright © Liubomyr Vyhovskyi, 2023</Copyright>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageTags>test nuget package</PackageTags>
+    <RepositoryUrl>https://github.com/luber/test-release-packages</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Test nuget package build</Description>
+    <PackageId>Luber.TestReleasePackages</PackageId>
+    <Authors>Liubomyr Vyhovskyi</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.json" Version="13.0.3" />
+  </ItemGroup>
+</Project>
