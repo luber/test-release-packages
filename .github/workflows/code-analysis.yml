@@ -51,7 +51,7 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@latest
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-on-empty: 'true'
           skip-version-file: 'true'
           skip-commit: 'true'
@@ -78,7 +78,7 @@ jobs:
         run: |
           mkdir -p ./.sonar/scanner
           chmod a+rwx ./.sonar/scanner
-          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+          dotnet tool update dotnet-sonarscanner --ignore-failed-sources --tool-path ./.sonar/scanner
 
       - name: Restore dependencies
         run: dotnet restore **/*.csproj
