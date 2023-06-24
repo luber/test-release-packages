@@ -28,8 +28,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting for Sonar
-          # In order for the gitversion to properly work you need to clone the repository with the entire history:
           fetch-depth: 0
 
       - name: Set up JDK 11
