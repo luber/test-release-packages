@@ -2,7 +2,7 @@
 
 public class Class1
 {
-    public string GetString(string input) 
+    public static string GetString(string input) 
     {
         return "Test" + input;
     }
