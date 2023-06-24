@@ -43,7 +43,7 @@ jobs:
         with:
           dotnet-version: | 
             7.x
-          source-url: https://nuget.pkg.github.com/${{ github.repository }}/index.json
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -78,7 +78,7 @@ jobs:
         run: |
           mkdir -p ./.sonar/scanner
           chmod a+rwx ./.sonar/scanner
-          dotnet tool update dotnet-sonarscanner --ignore-failed-sources --tool-path ./.sonar/scanner
+          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
       - name: Restore dependencies
         run: dotnet restore **/*.csproj
