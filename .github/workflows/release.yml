@@ -41,7 +41,8 @@ jobs:
         id: changelog
         uses: TriPSs/conventional-changelog-action@latest
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          skip-version-file: 'true'
 
       - name: Restore dependencies
         run: dotnet restore **/*.csproj
