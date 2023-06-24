@@ -52,10 +52,11 @@ jobs:
         uses: TriPSs/conventional-changelog-action@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: 'false'
+          git-push: 'false'
           skip-on-empty: 'false'
           skip-version-file: 'true'
           skip-commit: 'true'
-          output-file: 'false'
           skip-git-pull: 'true'
           skip-tag: 'true'
 
