@@ -52,7 +52,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@latest
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          skip-on-empty: 'true'
+          skip-on-empty: 'false'
           skip-version-file: 'true'
           skip-commit: 'true'
           output-file: 'false'
@@ -87,10 +87,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "SONAR_TOKEN is not set"
-            exit 1
-          fi
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.PROJECT_KEY }}" /o:"${{ env.ORGANIZATION }}" /d:sonar.projectVersion="${{ steps.changelog.outputs.tag }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build **/*.csproj /p:Version=${{ steps.changelog.outputs.tag }} --no-restore
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
