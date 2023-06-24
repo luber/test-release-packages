@@ -1,15 +1,12 @@
 name: Release NuGet Package
 
 on:
-    # merge to master from pull request
-    pull_request:
-      types:
-        - closed
-      branches:
-        - master
-        - main
-      paths-ignore:
-        - '**.md'
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - '**.md'
 
 env:
   DOTNET_NOLOGO: 1
