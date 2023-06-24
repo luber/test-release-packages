@@ -57,6 +57,7 @@ jobs:
           skip-commit: 'true'
           output-file: 'false'
           skip-git-pull: 'true'
+          skip-tag: 'true'
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
