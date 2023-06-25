@@ -8,6 +8,6 @@ public class UnitTest1
     [Fact]
     public void Test1()
     {
-        Class1.GetString("Test").Should().Be("Test2Test");
+        Class1.GetString("123").Should().Be("Test123");
     }
 }
