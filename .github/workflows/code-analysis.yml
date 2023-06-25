@@ -87,7 +87,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ env.PROJECT_KEY }}" /o:"${{ env.ORGANIZATION }}" /v:"${{ steps.changelog.outputs.version }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=test/**/TestResults/**/coverage.opencover.xml /d:sonar.cs.xunit.reportsPaths=test/**/TestResults/testResults.trx
+          ./.sonar/scanner/dotnet-sonarscanner begin \
+          /k:"${{ env.PROJECT_KEY }}" \
+          /o:"${{ env.ORGANIZATION }}" \
+          /v:"${{ steps.changelog.outputs.version }}" \
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
+          /d:sonar.sources="src" \
+          /d:sonar.tests="test" \
+          /d:sonar.cs.vstest.reportsPaths="test/**/TestResults/*.trx" \
+          /d:sonar.cs.xunit.reportsPaths="test/**/TestResults/*.trx" \
+          /d:sonar.cs.opencover.reportsPaths="test/**/TestResults/**/*.xml"
           dotnet build /p:Version=${{ steps.changelog.outputs.version }} --no-restore --no-incremental
           dotnet test --logger "trx;logfilename=testResults.trx" --collect:"XPlat Code Coverage;Format=opencover" --no-build
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
