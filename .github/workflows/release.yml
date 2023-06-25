@@ -54,7 +54,7 @@ jobs:
         run: dotnet pack ./src --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
       
       - name: Push NuGet to GitHub packages
-        run: dotnet nuget push *.nupkg --source ${{ env.NUGET_URL }} --skip-duplicate --no-symbols true
+        run: dotnet nuget push *.nupkg --source ${{ env.NUGET_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate --no-symbols true
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
