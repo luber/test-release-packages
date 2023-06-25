@@ -46,10 +46,11 @@ jobs:
           skip-commit: 'true'
 
       - name: Restore dependencies
-        run: dotnet restore **/*.csproj
+        run: |
+          dotnet restore src/**/*.csproj
 
       - name: Build
-        run: dotnet build **/*.csproj --configuration Release /p:ContinuousIntegrationBuild=true /p:Version=${{ steps.changelog.outputs.version }} --no-restore
+        run: dotnet build src/**/*.csproj --configuration Release /p:ContinuousIntegrationBuild=true /p:Version=${{ steps.changelog.outputs.version }} --no-restore
 
       - name: Pack
         run: dotnet pack ./src --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
