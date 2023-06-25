@@ -16,7 +16,9 @@ on:
 jobs:
   analysis:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
+
     env:
       DOTNET_NOLOGO: 1
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
@@ -117,6 +119,8 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
 
       - name: "Example show SonarQube Quality Gate Status value"
         run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
@@ -124,6 +128,8 @@ jobs:
       - name: SonarQube Pull Request Comment
         if: always()
         uses: campos-pay/sonarqube-pr-comment@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
