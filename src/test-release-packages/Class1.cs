@@ -9,7 +9,6 @@ public static class Class1
 
     public static string GetString2(string input2) 
     {
-        var a = 1;
-        return $"http://Test2/" + input2;
+        return $"https://Test2/" + input2;
     }
 }
