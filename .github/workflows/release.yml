@@ -50,7 +50,7 @@ jobs:
         run: dotnet build **/*.csproj --configuration Release /p:ContinuousIntegrationBuild=true /p:Version=${{ steps.changelog.outputs.version }} --no-restore
 
       - name: Pack
-        run: dotnet pack src/**/*.csproj --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
+        run: dotnet pack ./src/**/*.csproj --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
       
       - name: Push NuGet to GitHub packages
         run: dotnet nuget push *.nupkg --source https://nuget.pkg.github.com/$GITHUB_REPOSITORY_OWNER/index.json --skip-duplicate --no-symbols true
