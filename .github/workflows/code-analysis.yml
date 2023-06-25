@@ -87,9 +87,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ env.PROJECT_KEY }}" /o:"${{ env.ORGANIZATION }}" /v:"${{ steps.changelog.outputs.version }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=coverage.opencover.xml /d:sonar.cs.xunit.reportsPaths=testResults.trx
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ env.PROJECT_KEY }}" /o:"${{ env.ORGANIZATION }}" /v:"${{ steps.changelog.outputs.version }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.opencover.reportsPaths=test/**/TestResults/**/coverage.opencover.xml /d:sonar.cs.xunit.reportsPaths=test/**/TestResults/testResults.trx
           dotnet build /p:Version=${{ steps.changelog.outputs.version }} --no-restore --no-incremental
           dotnet test --logger "trx;logfilename=testResults.trx" --collect:"XPlat Code Coverage;Format=opencover" --no-build
-          find test -path "*TestResults/testResults.trx" -exec mv {} . \;
-          find test -path "*TestResults*/coverage.opencover.xml" -exec mv {} . \;
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
