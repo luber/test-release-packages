@@ -4,6 +4,6 @@ public static class Class1
 {
     public static string GetString(string input) 
     {
-        return "Test" + input;
+        return "Test2" + input;
     }
 }
