@@ -6,7 +6,9 @@ on:
       - main
       - master
     paths-ignore:
-      - '**.md'
+      - "**/*.md"
+      - "**/*.gitignore"
+      - "**/*.gitattributes"
   workflow_dispatch:
 
 env:
@@ -31,7 +33,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: | 
+          dotnet-version: |
             7.x
           source-url: ${{ env.NUGET_URL }}
         env:
@@ -46,14 +48,13 @@ jobs:
           skip-commit: 'true'
 
       - name: Restore dependencies
-        run: |
-          dotnet restore src/**/*.csproj
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build src/**/*.csproj --configuration Release /p:ContinuousIntegrationBuild=true /p:Version=${{ steps.changelog.outputs.version }} --no-restore
+        run: dotnet build --configuration Release /p:ContinuousIntegrationBuild=true /p:Version=${{ steps.changelog.outputs.version }} --no-restore
 
       - name: Pack
-        run: dotnet pack ./src --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
+        run: dotnet pack src/**/*.csproj --configuration Release /p:Version=${{ steps.changelog.outputs.version }} --no-build --output .
       
       - name: Push NuGet to GitHub packages
         run: dotnet nuget push *.nupkg --source ${{ env.NUGET_URL }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
